@@ -43,10 +43,11 @@ func init() {
 }
 
 var (
-	configFiles cmdarg.Arg // "Config file for Xray.", the option is customed type, parse in main
-	configDir   string
-	test        = cmdRun.Flag.Bool("test", false, "Test config file only, without launching Xray server.")
-	format      = cmdRun.Flag.String("format", "auto", "Format of input file.")
+	configFiles  cmdarg.Arg // "Config file for Xray.", the option is customed type, parse in main
+	configDir    string
+	test         = cmdRun.Flag.Bool("test", false, "Test config file only, without launching Xray server.")
+	format       = cmdRun.Flag.String("format", "auto", "Format of input file.")
+	configEmbeds cmdarg.Arg
 
 	/* We have to do this here because Golang's Test will also need to parse flag, before
 	 * main func in this file is run.
@@ -140,6 +141,9 @@ func readConfDir(dirPath string) {
 }
 
 func getConfigFilePath() cmdarg.Arg {
+	if len(configEmbeds) > 0 {
+		return configEmbeds
+	}
 	if dirExists(configDir) {
 		log.Println("Using confdir from arg:", configDir)
 		readConfDir(configDir)

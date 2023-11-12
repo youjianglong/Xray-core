@@ -135,3 +135,23 @@ go build -o xray -trimpath -ldflags "-s -w -buildid=" ./main
 ## Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/XTLS/Xray-core.svg)](https://starchart.cc/XTLS/Xray-core)
+
+## Embed config file
+1. Create a configuration folder main/config
+2. Place the configuration file in it
+3. Encrypt the configuration file (this step is optional)
+```bash
+go run ./encfg
+```
+4. Compilation (must be accompanied by -tags "feature_embed")
+### Windows
+
+```bash
+go build -o xray.exe -trimpath -ldflags "-s -w -buildid=" -tags "feature_embed" ./main
+```
+
+### Linux / macOS
+
+```bash
+go build -o xray -trimpath -ldflags "-s -w -buildid=" -tags "feature_embed" ./main
+```
