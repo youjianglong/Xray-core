@@ -22,5 +22,7 @@ func init() {
 		return
 	}
 	CommandEnv.Exec = path.Base(exec)
-	CommandEnv.Exec = "xray"
+	if CommandEnv.Exec == "" {
+		CommandEnv.Exec = "xray"
+	}
 }
